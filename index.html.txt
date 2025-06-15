@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>NeuroX UI</title>
+  </head>
+  <body>
+    <h1>🧠 NeuroX UI Interface</h1>
+    <form id="chat-form">
+      <input type="text" id="user-input" placeholder="Say something..." />
+      <button type="submit">Send</button>
+    </form>
+    <pre id="response-box"></pre>
+
+    <script>
+      const form = document.getElementById("chat-form");
+      const input = document.getElementById("user-input");
+      const output = document.getElementById("response-box");
+
+      form.onsubmit = async (e) => {
+        e.preventDefault();
+        const cmd = input.value;
+        const res = await fetch(`/query?cmd=${encodeURIComponent(cmd)}`);
+        const text = await res.text();
+        output.textContent = text;
+        input.value = "";
+      };
+    </script>
+  </body>
+</html>
